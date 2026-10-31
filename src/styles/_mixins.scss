@@ -1,0 +1,43 @@
+// Breakpoints: Mobil < 768, Tablet 768–1199, Groß ≥ 1200
+@mixin tablet-up { @media (min-width: 768px) { @content; } }
+@mixin desktop-up { @media (min-width: 1200px) { @content; } }
+
+@mixin glow {
+  box-shadow: var(--glow-cyan), var(--glow-magenta);
+}
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--color-cyan);
+    outline-offset: 3px;
+  }
+}
+
+@mixin panel {
+  background: var(--color-panel);
+  border: 1px solid var(--color-border-cyan);
+  border-radius: var(--radius-panel);
+  padding: var(--space-6);
+  @include tablet-up { padding: var(--space-8); }
+}
+
+@mixin hover-lift {
+  transition: transform 250ms var(--ease-book), border-color 250ms, box-shadow 250ms;
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    &:hover { transform: translateY(-4px); }
+  }
+}
+
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  min-height: 3em;
+  padding: 0 1.6em;
+  border-radius: var(--radius-pill);
+  font: 500 1em var(--font-body);
+  text-decoration: none;
+  cursor: pointer;
+  @include focus-ring;
+}

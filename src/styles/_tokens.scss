@@ -1,0 +1,34 @@
+// Design-Tokens aus dem Design-Handoff (Marcel Schmitz)
+:root {
+  --color-bg: #05060B;
+  --color-panel: #0A0D16;
+  --color-panel-raised: #101321;
+  --color-cyan: #00F0FF;
+  --color-magenta: #FF00FF;
+  --color-violet: #8B5CF6;
+  --color-text: #F5F7FF;
+  --color-muted: #A7AEC4;
+  --color-border: #243047;
+  --color-border-cyan: rgba(0, 240, 255, 0.28);
+  --color-border-magenta: rgba(255, 0, 255, 0.24);
+
+  --font-heading: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-script: "Caveat", "Segoe Script", cursive;
+
+  --space-1: 4px;  --space-2: 8px;
+  --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px;
+  --space-10: 40px; --space-12: 48px;
+  --space-16: 64px; --space-20: 80px;
+
+  --radius-card: 14px;
+  --radius-panel: 18px;
+  --radius-pill: 999px;
+
+  --glow-cyan: 0 0 12px rgba(0, 240, 255, 0.22);
+  --glow-magenta: 0 0 28px rgba(255, 0, 255, 0.12);
+
+  --ease-book: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-page: 600ms;
+}
