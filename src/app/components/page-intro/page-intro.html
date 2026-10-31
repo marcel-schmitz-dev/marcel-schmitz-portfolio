@@ -1,0 +1,12 @@
+<section class="intro">
+  <h2 class="intro__title">{{ intro().title }}</h2>
+  <p class="intro__text">{{ intro().text }}</p>
+
+  @if (kind() === 'contact') {
+    <ul class="intro__links">
+      @if (c.email) { <li><a [href]="'mailto:' + c.email">{{ c.email }}</a></li> }
+      @if (c.github) { <li><a [href]="c.github" target="_blank" rel="noopener noreferrer">GitHub</a></li> }
+      @if (c.linkedin) { <li><a [href]="c.linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a></li> }
+    </ul>
+  }
+</section>

@@ -1,0 +1,23 @@
+<article class="card">
+  <div class="card__media">
+    @if (project().image) {
+      <img [src]="project().image" [alt]="'Vorschau: ' + project().title" loading="lazy" />
+    } @else {
+      <span class="card__placeholder">Screenshot folgt</span>
+    }
+  </div>
+  <h3 class="card__title">{{ project().title }}</h3>
+  <p class="card__text">{{ project().description }}</p>
+  <div class="card__actions">
+    @if (project().githubUrl) {
+      <a class="btn btn--ghost" [href]="project().githubUrl" target="_blank" rel="noopener noreferrer">GitHub</a>
+    } @else {
+      <span class="btn btn--off" aria-disabled="true">GitHub folgt</span>
+    }
+    @if (project().liveUrl) {
+      <a class="btn btn--solid" [href]="project().liveUrl" target="_blank" rel="noopener noreferrer">Live Demo</a>
+    } @else {
+      <span class="btn btn--off" aria-disabled="true">Live Demo folgt</span>
+    }
+  </div>
+</article>

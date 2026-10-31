@@ -1,0 +1,10 @@
+:host { display: block; height: 100%; }
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2em;
+  align-content: center;
+  height: 100%;
+  padding: calc(var(--nav-space, 0em) + 1em) 2.6em 2.5em;
+}

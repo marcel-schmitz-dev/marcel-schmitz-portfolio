@@ -1,0 +1,15 @@
+@use '../../../styles/mixins' as m;
+
+:host { display: block; height: 100%; }
+
+.intro { display: grid; gap: 1em; align-content: center; height: 100%; padding: 2.4em 2.6em 3em 2.4em; }
+
+.intro__title {
+  padding-bottom: 0.4em;
+  border-bottom: 2px solid var(--color-cyan);
+  font-size: 2.1em;
+  width: fit-content;
+}
+
+.intro__text { color: var(--color-muted); line-height: 1.6; }
+.intro__links { display: grid; gap: 0.4em; a { color: var(--color-cyan); @include m.focus-ring; } }

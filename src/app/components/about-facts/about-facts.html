@@ -1,0 +1,10 @@
+<section class="facts" aria-label="Eckdaten">
+  <dl class="facts__list">
+    @for (f of facts; track f.label) {
+      <div class="facts__row">
+        <dt>{{ f.label }}</dt>
+        <dd>{{ f.value }}</dd>
+      </div>
+    }
+  </dl>
+</section>

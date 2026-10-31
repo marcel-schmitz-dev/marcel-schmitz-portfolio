@@ -1,0 +1,10 @@
+<section class="skills" aria-label="Skills">
+  <ul class="skills__list">
+    @for (skill of skills; track skill.label) {
+      <li class="skills__item">
+        <span class="skills__icon" aria-hidden="true">{{ skill.short }}</span>
+        <span class="skills__label">{{ skill.label }}</span>
+      </li>
+    }
+  </ul>
+</section>
