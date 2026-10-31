@@ -1,0 +1,116 @@
+@use '../../../styles/mixins' as m;
+
+:host { display: block; padding: clamp(8px, 1.5vw, 24px); }
+
+// ---------------------------------------------------------------------------
+// Buch (ab 1100 px): Das Bild liefert Rahmen, Portrait und Schreibtisch.
+// Die Seitenflächen sind Anteile der Bildgröße. Sitzt eine Seite nicht exakt
+// auf dem Bild, genügt es, diese Werte anzupassen (0 bis 1).
+// ---------------------------------------------------------------------------
+.stage {
+  --lx: 0.086; --lw: 0.284;   // linke Seite: Start und Breite
+  --rx: 0.38;  --rw: 0.54;    // rechte Seite: Start und Breite
+  --py: 0.04;  --ph: 0.925;   // gemeinsam: Oberkante und Höhe
+
+  position: relative;
+  display: block;
+  width: min(100%, 1600px);
+  margin-inline: auto;
+  aspect-ratio: 1906 / 825;
+  container-type: inline-size;
+  perspective: 3600px;
+  background: var(--book-img) center / 100% 100% no-repeat;
+}
+
+.page {
+  position: absolute;
+  top: calc(var(--py) * 100%);
+  height: calc(var(--ph) * 100%);
+  overflow: hidden;
+  font-size: clamp(10px, 0.95cqw, 17px); // alle Maße in den Seiten sind em: das Buch skaliert wie ein Bild
+  --nav-space: 4.6em;
+}
+
+.page--left { left: calc(var(--lx) * 100%); width: calc(var(--lw) * 100%); transform-origin: right center; --x: var(--lx); --w: var(--lw); }
+.page--right { left: calc(var(--rx) * 100%); width: calc(var(--rw) * 100%); transform-origin: left center; --x: var(--rx); --w: var(--rw); }
+
+// Startseite: die Seite zeigt den passenden Ausschnitt des Buchbilds
+.page--image {
+  background-image: var(--book-img);
+  background-repeat: no-repeat;
+  background-size: calc(100% / var(--w)) calc(100% / var(--ph));
+  background-position: calc(var(--x) / (1 - var(--w)) * 100%) calc(var(--py) / (1 - var(--ph)) * 100%);
+}
+
+// Innenseiten: dunkles Papier mit Schatten zur Buchmitte
+.page--paper { border: 1px solid var(--color-border-cyan); border-radius: 0.5em; }
+.page--left.page--paper {
+  background: linear-gradient(90deg, #0b0f1d, #070a14 70%, #04050a);
+  box-shadow: inset -2em 0 2.4em -1.6em rgba(0, 0, 0, 0.9), inset 0 0 2.4em rgba(0, 240, 255, 0.05);
+}
+.page--right.page--paper {
+  background: linear-gradient(270deg, #0b0f1d, #070a14 70%, #04050a);
+  box-shadow: inset 2em 0 2.4em -1.6em rgba(0, 0, 0, 0.9), inset 0 0 2.4em rgba(255, 0, 255, 0.05);
+}
+
+// Blättern
+.leaf { z-index: 5; animation-duration: 520ms; animation-fill-mode: both; will-change: transform, filter; }
+.leaf[data-anim='right-lift'] { animation-name: right-lift; animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.7); }
+.leaf[data-anim='left-lift'] { animation-name: left-lift; animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.7); }
+.leaf[data-anim='left-land'] { animation-name: left-land; animation-timing-function: cubic-bezier(0.1, 0.4, 0.3, 1); }
+.leaf[data-anim='right-land'] { animation-name: right-land; animation-timing-function: cubic-bezier(0.1, 0.4, 0.3, 1); }
+
+@keyframes right-lift { from { transform: rotateY(0); filter: brightness(1); } to { transform: rotateY(-90deg); filter: brightness(0.45); } }
+@keyframes left-lift { from { transform: rotateY(0); filter: brightness(1); } to { transform: rotateY(90deg); filter: brightness(0.45); } }
+@keyframes left-land { from { transform: rotateY(90deg); filter: brightness(0.45); } to { transform: rotateY(0); filter: brightness(1); } }
+@keyframes right-land { from { transform: rotateY(-90deg); filter: brightness(0.45); } to { transform: rotateY(0); filter: brightness(1); } }
+
+// Navigation liegt fest auf der oberen rechten Seite und blättert nicht mit
+.nav-layer {
+  position: absolute;
+  z-index: 10;
+  top: calc(var(--py) * 100% + 1.6%);
+  left: calc(var(--rx) * 100%);
+  width: calc(var(--rw) * 100%);
+  padding-inline: 3em;
+  font-size: clamp(10px, 0.95cqw, 17px);
+}
+
+// ---------------------------------------------------------------------------
+// Schmale Bildschirme: Seiten untereinander, ohne Blättern
+// ---------------------------------------------------------------------------
+.nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 0.4rem 0.8rem;
+  font-size: 15px;
+  background: rgba(5, 6, 11, 0.92);
+  border-bottom: 1px solid var(--color-border-cyan);
+}
+
+.stack { display: grid; gap: 1rem; margin-top: 1rem; container-type: inline-size; }
+.stack__spread { display: grid; gap: 1rem; scroll-margin-top: 4.5rem; }
+
+.stack__page {
+  --nav-space: 0em;
+  min-height: 12em;
+  overflow: hidden;
+  font-size: 15px;
+  border: 1px solid var(--color-border-cyan);
+  border-radius: var(--radius-card);
+  background: linear-gradient(160deg, #0b0f1d, #05060b);
+}
+
+// Startseite: das Portrait ist der linke Bildausschnitt
+.stack__page--cover {
+  --lx: 0.086; --lw: 0.284; --py: 0.04; --ph: 0.925; --x: var(--lx); --w: var(--lw);
+  aspect-ratio: 541 / 763;
+  max-width: 28em;
+  margin-inline: auto;
+  width: 100%;
+  background-image: var(--book-img);
+  background-repeat: no-repeat;
+  background-size: calc(100% / var(--w)) calc(100% / var(--ph));
+  background-position: calc(var(--x) / (1 - var(--w)) * 100%) calc(var(--py) / (1 - var(--ph)) * 100%);
+}

@@ -1,0 +1,38 @@
+@use '../../../styles/mixins' as m;
+
+:host { display: block; }
+
+.nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5em; }
+.nav__list { display: flex; flex-wrap: wrap; gap: 0.2em 0.6em; }
+
+.nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  min-height: 2.8em;
+  padding: 0 0.9em;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--color-text);
+  font: 500 1.05em var(--font-heading);
+  cursor: pointer;
+  transition: color 250ms, border-color 250ms;
+  @include m.focus-ring;
+  &:hover { color: var(--color-cyan); }
+}
+
+.nav__link--active { color: var(--color-cyan); border-bottom-color: var(--color-cyan); }
+
+.nav__icon { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+
+.nav__github {
+  display: grid;
+  place-items: center;
+  width: 2.8em;
+  height: 2.8em;
+  color: var(--color-text);
+  @include m.focus-ring;
+  svg { width: 1.7em; height: 1.7em; fill: currentColor; }
+  &:hover { color: var(--color-cyan); }
+}

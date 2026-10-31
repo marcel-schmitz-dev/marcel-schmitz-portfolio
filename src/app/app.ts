@@ -1,12 +1,9 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { PortfolioBook } from './components/portfolio-book/portfolio-book';
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
-  styleUrl: './app.scss',
-  templateUrl: './app.html',
+  imports: [PortfolioBook],
+  template: '<app-portfolio-book />',
 })
-export class App {
-  protected readonly title = signal('marcel-schmitz-portfolio');
-}
+export class App {}

@@ -1,0 +1,42 @@
+@if (bookMode()) {
+  <main class="stage" [style.--book-img]="bookImage">
+    <div class="page page--left" [class.page--image]="leftBase() === 0" [class.page--paper]="leftBase() !== 0">
+      <app-page-content [spread]="leftBase()" side="left" />
+    </div>
+    <div class="page page--right" [class.page--image]="rightBase() === 0" [class.page--paper]="rightBase() !== 0">
+      <app-page-content [spread]="rightBase()" side="right" (more)="goTo(1)" />
+    </div>
+
+    @for (leaf of leaves(); track leaf.key) {
+      <div
+        class="page leaf"
+        [class.page--left]="leaf.side === 'left'"
+        [class.page--right]="leaf.side === 'right'"
+        [class.page--image]="leaf.spread === 0"
+        [class.page--paper]="leaf.spread !== 0"
+        [attr.data-anim]="leaf.anim"
+        (animationend)="onLeafEnd($event)"
+      >
+        <app-page-content [spread]="leaf.spread" [side]="leaf.side" />
+      </div>
+    }
+
+    <app-book-navigation class="nav-layer" [active]="shown()" (select)="goTo($event)" />
+    <p class="sr-only" role="status">Seite: {{ labels[shown()] }}</p>
+  </main>
+} @else {
+  <app-book-navigation class="nav-bar" [active]="shown()" (select)="goTo($event)" />
+  <main class="stack" [style.--book-img]="bookImage">
+    @for (i of spreads; track i) {
+      <section class="stack__spread" [id]="'spread-' + i" [attr.aria-label]="labels[i]">
+        <div class="stack__page" [class.stack__page--cover]="i === 0">
+          <app-page-content [spread]="i" side="left" />
+        </div>
+        <div class="stack__page">
+          <app-page-content [spread]="i" side="right" (more)="goTo(1)" />
+        </div>
+      </section>
+    }
+  </main>
+}
+<app-site-footer />
