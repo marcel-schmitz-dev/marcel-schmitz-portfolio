@@ -1,0 +1,8 @@
+<section class="hero">
+  <p class="hero__greeting">{{ p.greeting }}</p>
+  <h1 class="hero__name">{{ p.firstName }} <span>{{ p.lastName }}</span></h1>
+  <p class="hero__role">{{ p.role }}</p>
+  <p class="hero__intro">{{ p.intro }}</p>
+  <p class="hero__tagline">{{ p.tagline }}</p>
+  <button class="hero__cta" type="button" (click)="more.emit()">Mehr über mich</button>
+</section>

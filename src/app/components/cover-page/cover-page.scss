@@ -1,0 +1,25 @@
+:host { display: block; height: 100%; }
+
+.cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 2.4em 2.4em 3em;
+  text-shadow: 0 0 0.8em rgba(0, 0, 0, 0.9);
+}
+
+.cover__brand { display: flex; align-items: flex-start; gap: 0.8em; }
+.cover__mono { font: 700 2.6em/1 var(--font-heading); color: var(--color-cyan); }
+.cover__name { font: 600 1.9em/1.1 var(--font-heading); letter-spacing: 0.02em; }
+.cover__role { margin-top: 0.2em; color: var(--color-cyan); font: 500 1.2em var(--font-heading); }
+.cover__claim { color: var(--color-muted); font-size: 0.9em; }
+
+.cover__welcome {
+  max-width: 7em;
+  font: 600 2.6em/1 var(--font-script);
+  color: var(--color-cyan);
+  text-shadow: 0 0 0.5em rgba(0, 240, 255, 0.5), 0 0 1em rgba(0, 0, 0, 0.9);
+  transform: rotate(-6deg);
+  transform-origin: left bottom;
+}
